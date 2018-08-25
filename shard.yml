@@ -1,0 +1,13 @@
+name: fseventsp
+version: 0.1.0
+
+authors:
+  - Alex M <github.com/packetzero>
+
+crystal: 0.25.1
+
+license: MIT
+
+#dependencies:
+#  sqlite3:
+#    github: crystal-lang/crystal-sqlite3

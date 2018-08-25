@@ -5,8 +5,8 @@ Details on the FSEvents file format is here:
 [http://nicoleibrahim.com/apple-fsevents-forensics/](http://nicoleibrahim.com/apple-fsevents-forensics/)
 
 ## Why?
-While I had experience with the FSEvents C++ API, this project gave me a chance to learn the file format, and another chance to show the beauty of crystal.
-Compiled for release mode, fseventsp is really fast.  For 272 files with about 18MB of FSEvents, produces a 546MB TSV file in about 6 seconds on a MacBook Pro i7.  Creating a SQLite3 database by importing the TSV data takes about 26 seconds, and another few seconds for the 'fullpath' index creation.
+While I had experience with the FSEvents C++ API, this project allowed me to learn the file format, and another chance to show the beauty of crystal.
+Compiled for release mode, fseventsp is really fast.  For 271 files with about 18MB of gzipped FSEvents, produces a 546MB TSV file in about 6 seconds on a MacBook Pro i7.  Creating the SQLite3 database by importing the TSV data, indexing, and generating reports takes another 30 seconds or so.
 
 ## Prerequisite : crystal-lang
 Since this is a source-code distribution, you will need to compile the executable.  You will need crystal, and the easiest way to get it is via [homebrew](https://brew.sh).
@@ -24,13 +24,31 @@ make
 ## Run - Extracts data to TSV file
 You don't want to run the utility on the /.fseventsd directory.  Make a copy of the directory and chown permissions to regular user.
 ```
-./bin/fseventsp  -s path/to/your/.fseventsd
-```
+./bin/fseventsp  -s path/to/your/.fseventsd -o desired/output/path -q report_queries.json
 
-## Build database
-Currently a separate script generates a SQLite3 database from the TSV file.
-```
-$ scripts/create_db_from_tsv.sh ./out/events.tsv
+Total FSEvents Files: 271
+Parsing...
+10%
+20%
+30%
+40%
+50%
+60%
+70%
+80%
+90%
+100%
 creating database and importing TSV
 creating fullname index...
+creating report 'UserProfileActivity'
+creating report 'TrashActivity'
+creating report 'BrowserActivity'
+creating report 'DownloadsActivity'
+creating report 'MountActivity'
+creating report 'EmailAttachments'
+creating report 'UsersPictureTypeFiles'
+creating report 'UsersDocumentTypeFiles'
+creating report 'DropBoxActivity'
+creating report 'Box_comActivity'
+creating report 'FolderAccess'
 ```
